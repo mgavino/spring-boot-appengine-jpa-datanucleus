@@ -38,12 +38,6 @@
 
         </dependency>
 
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-maven-plugin</artifactId>
-            <version>1.9.71</version>
-        </dependency>
-
         <!-- Do not include the Jetty dependencies. But you must include Servlet API dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -63,10 +57,21 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>com.google.appengine</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>1.9.71</version>
+                <configuration>
+                    <port>9090</port>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 
