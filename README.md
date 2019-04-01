@@ -1,1 +1,1 @@
-# spring-boot-appengine-jpa-datanucleus
+# spring-boot-appengine-objectify
