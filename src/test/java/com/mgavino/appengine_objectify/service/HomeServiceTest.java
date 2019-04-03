@@ -24,34 +24,6 @@ public class HomeServiceTest {
     @Autowired
     private GenericService service;
 
-    private static LocalDatastoreHelper localDatastore;
-
-    /**
-     * Init a local instance of datastore with the default parameters.
-     *  HOST: localhost
-     *  PORT: 8080
-     *  PROJECT_ID: test-project- + UUID.randomUUID()
-     */
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-        localDatastore = LocalDatastoreHelper.create(1.0); // 100% global consistency
-        localDatastore.start();
-    }
-
-    /**
-     * Stop the local instance of datastore
-     */
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        if (localDatastore != null) {
-            try {
-                localDatastore.stop();
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Test
     public void contextLoads() {
         Assert.assertNotNull(service);
@@ -59,11 +31,6 @@ public class HomeServiceTest {
 
     @Test
     public void save() {
-
-        Datastore ds = localDatastore.getOptions().getService();
-
-        ObjectifyService.init(new ObjectifyFactory(ds));
-        ObjectifyService.register(HomeEntity.class);
 
         HomeEntity entity = new HomeEntity();
         entity.setTitle("Title");

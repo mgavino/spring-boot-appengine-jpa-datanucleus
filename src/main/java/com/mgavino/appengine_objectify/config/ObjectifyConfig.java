@@ -1,34 +1,98 @@
 package com.mgavino.appengine_objectify.config;
 
-import com.googlecode.objectify.ObjectifyFilter;
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
+import com.google.cloud.datastore.testing.LocalDatastoreHelper;
+import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.util.Closeable;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import com.googlecode.objectify.annotation.Entity;
+import com.mgavino.appengine_objectify.entity.HomeEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 
-@Aspect
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import java.util.Arrays;
+import java.util.Set;
+
 @Configuration
 public class ObjectifyConfig {
 
-    @Around("anyMethod() && serviceClasses()")
-    public Object transaction(ProceedingJoinPoint joinPoint) throws Throwable {
+    @Value("${objectify.server}")
+    private String objectifyServer;
 
-        Object result;
-        try (Closeable closeable = ObjectifyService.begin()) {
-            result = joinPoint.proceed();
+    private LocalDatastoreHelper localDatastore;
+
+    @PostConstruct
+    private void initServer() throws Exception {
+
+        switch (objectifyServer) {
+
+            case "appengine":
+
+                // init objectify service with appengine datastore server
+                ObjectifyService.init();
+                break;
+
+            case "localhost":
+
+                // start an emulator datastore server
+                localDatastore = LocalDatastoreHelper.create(1.0);
+                localDatastore.start();
+
+                // init objectify service
+                Datastore ds = localDatastore.getOptions().getService();
+                ObjectifyService.init(new ObjectifyFactory(ds));
+
+            default: // localhost case
+
         }
-        return result;
+
+        // register entities
+        registerEntities();
 
     }
 
-    @Pointcut("@within(org.springframework.stereotype.Service)")
-    public void serviceClasses() {}
+    @PreDestroy
+    private void stopServer() {
 
-    @Pointcut("execution(* *(..))")
-    public void anyMethod() {}
+        if ("localhost".equals(objectifyServer)) {
+            if (localDatastore != null) {
+                try {
+                    localDatastore.stop();
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    private void registerEntities() {
+
+        // register entities
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
+
+        Set<BeanDefinition> entityBeanDefinitions = scanner.findCandidateComponents("com.mgavino.appengine_objectify");
+
+        entityBeanDefinitions.stream()
+                .map( bean -> {
+                    try {
+                        return Class.forName(bean.getBeanClassName());
+                    } catch (Exception exception) {
+                        return null;
+                    }
+                } )
+                .filter( entityClass -> entityClass != null )
+                .forEach( entityClass -> ObjectifyService.register(entityClass) );
+
+    }
 
 }
