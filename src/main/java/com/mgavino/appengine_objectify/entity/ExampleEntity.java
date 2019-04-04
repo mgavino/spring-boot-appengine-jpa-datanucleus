@@ -4,7 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 @Entity
-public class HomeEntity extends IdentifyEntity {
+public class ExampleEntity extends IdentifyEntity {
 
     private String title;
     private String description;

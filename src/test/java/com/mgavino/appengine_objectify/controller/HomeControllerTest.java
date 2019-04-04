@@ -33,6 +33,6 @@ public class HomeControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(
-                        Matchers.containsString("Greetings from Spring Boot!")));
+                        Matchers.containsString("Greetings!")));
     }
 }

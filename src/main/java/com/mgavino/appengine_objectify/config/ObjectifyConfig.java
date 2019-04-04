@@ -1,16 +1,12 @@
 package com.mgavino.appengine_objectify.config;
 
 import com.google.cloud.datastore.Datastore;
-import com.google.cloud.datastore.DatastoreOptions;
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
-import com.mgavino.appengine_objectify.entity.HomeEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -18,7 +14,6 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import java.util.Arrays;
 import java.util.Set;
 
 @Configuration
