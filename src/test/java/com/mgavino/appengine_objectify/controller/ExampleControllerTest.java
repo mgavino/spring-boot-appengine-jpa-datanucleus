@@ -17,25 +17,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerTest {
+public class ExampleControllerTest {
 
     @Autowired
-    private HomeController controller;
-
-    @Autowired
-    private MockMvc mockMvc;
+    private ExampleController controller;
 
     @Test
     public void contextLoads() {
         Assert.assertNotNull(controller);
     }
 
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string(
-                        Matchers.containsString("Greetings!")));
-    }
 }
