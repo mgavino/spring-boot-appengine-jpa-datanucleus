@@ -47,7 +47,7 @@ public class ExampleController {
         return new ResponseEntity<ExampleEntity>(entity, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ExampleEntity> post(@RequestBody ExampleEntity entity, UriComponentsBuilder ucBuilder) {
 
         if (entity.getId() != null) {

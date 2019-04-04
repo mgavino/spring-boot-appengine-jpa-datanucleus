@@ -22,16 +22,10 @@ public class ExampleServiceTest {
         Assert.assertNotNull(service);
     }
 
-    private ExampleEntity entity;
-
     @Test
     public void save() {
 
-        entity = new ExampleEntity();
-        entity.setTitle("Title");
-        entity.setDescription("Description");
-
-        entity = service.save(entity);
+        ExampleEntity entity = saveHelper();
 
         Assert.assertNotNull(entity);
         Assert.assertNotNull(entity.getId());
@@ -42,7 +36,7 @@ public class ExampleServiceTest {
     @Test
     public void update() {
 
-        save();
+        ExampleEntity entity = saveHelper();
 
         Long id = entity.getId();
         String title = entity.getTitle();
@@ -64,7 +58,7 @@ public class ExampleServiceTest {
     @Test
     public void get() {
 
-        save();
+        ExampleEntity entity = saveHelper();
 
         Long id = entity.getId();
         ExampleEntity foundEntity = service.find(id, ExampleEntity.class);
@@ -80,7 +74,7 @@ public class ExampleServiceTest {
     @Test
     public void getAll() {
 
-        save();
+        ExampleEntity entity = saveHelper();
 
         ExampleEntity entity2 = new ExampleEntity();
         entity2.setTitle("Title2");
@@ -97,7 +91,7 @@ public class ExampleServiceTest {
     @Test
     public void delete() {
 
-        save();
+        ExampleEntity entity = saveHelper();
 
         Long id = entity.getId();
         service.delete(id, ExampleEntity.class);
@@ -105,6 +99,16 @@ public class ExampleServiceTest {
         ExampleEntity foundEntity = service.find(id, ExampleEntity.class);
 
         Assert.assertNull(foundEntity);
+
+    }
+
+    private ExampleEntity saveHelper() {
+
+        ExampleEntity entity = new ExampleEntity();
+        entity.setTitle("Title");
+        entity.setDescription("Description");
+
+        return service.save(entity);
 
     }
 
