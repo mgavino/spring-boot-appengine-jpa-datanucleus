@@ -26,4 +26,8 @@ public class GenericService {
         ObjectifyService.ofy().delete().type(classType).id(id).now();
     }
 
+    public <T extends IdentifyEntity> void deleteAll(Class<T> classType) {
+        ObjectifyService.ofy().delete().entities( findAll(classType) );
+    }
+
 }

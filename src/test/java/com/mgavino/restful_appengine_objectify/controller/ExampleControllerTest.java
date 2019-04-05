@@ -151,6 +151,8 @@ public class ExampleControllerTest {
     @Test
     public void getAll() throws Exception {
 
+        service.deleteAll(ExampleEntity.class);
+
         saveHelper();
         saveHelper();
         saveHelper();

@@ -74,17 +74,16 @@ public class ExampleServiceTest {
     @Test
     public void getAll() {
 
-        ExampleEntity entity = saveHelper();
+        service.deleteAll(ExampleEntity.class);
 
-        ExampleEntity entity2 = new ExampleEntity();
-        entity2.setTitle("Title2");
-        entity2.setDescription("Description2");
-        service.save(entity2);
+        saveHelper();
+        saveHelper();
+        saveHelper();
 
         List<ExampleEntity> entities = service.findAll(ExampleEntity.class);
 
         Assert.assertNotNull(entities);
-        Assert.assertEquals(2, entities.size());
+        Assert.assertEquals(3, entities.size());
 
     }
 
@@ -99,6 +98,22 @@ public class ExampleServiceTest {
         ExampleEntity foundEntity = service.find(id, ExampleEntity.class);
 
         Assert.assertNull(foundEntity);
+
+    }
+
+    @Test
+    public void deleteAll() {
+
+        saveHelper();
+        saveHelper();
+        saveHelper();
+
+        service.deleteAll(ExampleEntity.class);
+
+        List<ExampleEntity> entities = service.findAll(ExampleEntity.class);
+
+        Assert.assertNotNull(entities);
+        Assert.assertTrue(entities.isEmpty());
 
     }
 
