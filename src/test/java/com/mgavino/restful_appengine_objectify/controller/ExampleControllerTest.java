@@ -1,23 +1,21 @@
-package com.mgavino.appengine_objectify.controller;
+package com.mgavino.restful_appengine_objectify.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mgavino.appengine_objectify.entity.ExampleEntity;
-import com.mgavino.appengine_objectify.service.GenericService;
-import com.mgavino.appengine_objectify.utils.Utils;
+import com.mgavino.restful_appengine_objectify.entity.ExampleEntity;
+import com.mgavino.restful_appengine_objectify.service.GenericService;
+import com.mgavino.restful_appengine_objectify.utils.Utils;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mgavino</groupId>
-    <artifactId>appengine-objectify</artifactId>
+    <artifactId>springboot-restful-appengine-objectify</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>springboot-appengine-objectify</name>
-    <description>Demo project for Spring Boot + App Engine + Objectify</description>
+    <name>springboot-restful-appengine-objectify</name>
+    <description>Demo project for Spring Boot + Restful + App Engine + Objectify</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,13 +28,13 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <appengine_objectify.objectify.server>localhost</appengine_objectify.objectify.server>
+                <restful_appengine_objectify.objectify.server>localhost</restful_appengine_objectify.objectify.server>
             </properties>
         </profile>
         <profile>
             <id>production</id>
             <properties>
-                <appengine_objectify.objectify.server>appengine</appengine_objectify.objectify.server>
+                <restful_appengine_objectify.objectify.server>appengine</restful_appengine_objectify.objectify.server>
             </properties>
         </profile>
     </profiles>

@@ -1,4 +1,4 @@
-package com.mgavino.appengine_objectify.entity;
+package com.mgavino.restful_appengine_objectify.entity;
 
 import com.googlecode.objectify.annotation.Id;
 

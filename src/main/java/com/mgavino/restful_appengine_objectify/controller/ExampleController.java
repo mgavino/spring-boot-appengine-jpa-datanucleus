@@ -1,20 +1,15 @@
-package com.mgavino.appengine_objectify.controller;
+package com.mgavino.restful_appengine_objectify.controller;
 
-import com.mgavino.appengine_objectify.entity.ExampleEntity;
-import com.mgavino.appengine_objectify.service.GenericService;
-import com.mgavino.appengine_objectify.utils.Utils;
+import com.mgavino.restful_appengine_objectify.entity.ExampleEntity;
+import com.mgavino.restful_appengine_objectify.service.GenericService;
+import com.mgavino.restful_appengine_objectify.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import sun.reflect.Reflection;
 
-import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

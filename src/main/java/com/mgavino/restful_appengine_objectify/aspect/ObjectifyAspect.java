@@ -1,16 +1,12 @@
-package com.mgavino.appengine_objectify.aspect;
+package com.mgavino.restful_appengine_objectify.aspect;
 
-import com.googlecode.objectify.ObjectifyFilter;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.util.Closeable;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 @Aspect
 @Configuration

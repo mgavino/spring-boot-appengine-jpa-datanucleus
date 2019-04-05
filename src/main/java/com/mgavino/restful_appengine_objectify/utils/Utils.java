@@ -1,11 +1,9 @@
-package com.mgavino.appengine_objectify.utils;
+package com.mgavino.restful_appengine_objectify.utils;
 
-import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class Utils {
 

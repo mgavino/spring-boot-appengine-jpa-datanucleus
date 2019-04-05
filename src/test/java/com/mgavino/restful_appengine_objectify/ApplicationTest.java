@@ -1,4 +1,4 @@
-package com.mgavino.appengine_objectify;
+package com.mgavino.restful_appengine_objectify;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

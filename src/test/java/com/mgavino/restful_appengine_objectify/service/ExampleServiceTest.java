@@ -1,6 +1,6 @@
-package com.mgavino.appengine_objectify.service;
+package com.mgavino.restful_appengine_objectify.service;
 
-import com.mgavino.appengine_objectify.entity.ExampleEntity;
+import com.mgavino.restful_appengine_objectify.entity.ExampleEntity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.mgavino.appengine_objectify;
+package com.mgavino.restful_appengine_objectify;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

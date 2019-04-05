@@ -1,9 +1,7 @@
-package com.mgavino.appengine_objectify.service;
+package com.mgavino.restful_appengine_objectify.service;
 
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.annotation.Entity;
-import com.mgavino.appengine_objectify.config.ObjectifyConfig;
-import com.mgavino.appengine_objectify.entity.IdentifyEntity;
+import com.mgavino.restful_appengine_objectify.entity.IdentifyEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

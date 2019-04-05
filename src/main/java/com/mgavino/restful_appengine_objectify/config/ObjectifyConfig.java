@@ -1,4 +1,4 @@
-package com.mgavino.appengine_objectify.config;
+package com.mgavino.restful_appengine_objectify.config;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.testing.LocalDatastoreHelper;
@@ -75,7 +75,7 @@ public class ObjectifyConfig {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
 
-        Set<BeanDefinition> entityBeanDefinitions = scanner.findCandidateComponents("com.mgavino.appengine_objectify");
+        Set<BeanDefinition> entityBeanDefinitions = scanner.findCandidateComponents("com.mgavino.restful_appengine_objectify");
 
         entityBeanDefinitions.stream()
                 .map( bean -> {
