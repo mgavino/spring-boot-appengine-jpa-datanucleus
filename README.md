@@ -83,7 +83,7 @@ Firsly, let's exclude _spring-boot-starter-tomcat_, and add _javax.servlet-api_ 
 </dependency>
 ```
 
-And add Maven App Engine plugin (default port is 8080, so I have changed it to not having conflicts with other web applications)
+And add Maven App Engine plugin (default port is 8080, so I have changed it not to having conflicts with other web applications)
 ```
 <plugin>
     <groupId>com.google.appengine</groupId>
