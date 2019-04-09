@@ -124,19 +124,8 @@ And create our entity objects, using _@Entity_ annotation from Objectify:
 @Entity
 public class ExampleEntity extends IdentifyEntity {
     
-    @Id
-    private Long id;
-    
     private String title;
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -152,6 +141,23 @@ public class ExampleEntity extends IdentifyEntity {
         this.description = description;
     }
 
+}
+```
+
+I have also created an abstract class _IdentifyEntity_, which will be use in each _@Entity_:
+```
+public abstract class IdentifyEntity {
+
+    @Id
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
 ```
 
