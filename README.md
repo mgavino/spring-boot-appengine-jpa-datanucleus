@@ -4,7 +4,7 @@ This is a simple sample of a Restful API build with Spring Boot, prepare to be d
 
 ## Spring Boot
 
-Firsly, we need to setup our pom.xml to use Spring Boot.
+Firstly, we need to setup our pom.xml to use Spring Boot.
 Adding Spring Boot Parent:
 ```
 <parent>
@@ -32,7 +32,7 @@ And the initial dependencies and plugin:
 </build>
 ```
 
-Now, we are going to configure our _main_ class:
+Now, we'll configure our _main_ class:
 ```
 @SpringBootApplication
 public class Application {
@@ -62,7 +62,7 @@ $ mvn spring-boot:run
 
 Having this, we continue configuring our application to be runnable on App Engine
 
-Firsly, let's exclude _spring-boot-starter-tomcat_, and add _javax.servlet-api_ dependency as provided. This is because App Engine uses Jetty while Spring Boot uses Tomcat. Our dependencies on _pom.xml_ has to be like this:
+Firstly, let's exclude _spring-boot-starter-tomcat_, and add _javax.servlet-api_ dependency as provided. This is because App Engine uses Jetty while Spring Boot uses Tomcat. Our dependencies on _pom.xml_ has to be like this:
 ```
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -95,7 +95,7 @@ And add Maven App Engine plugin (default port is 8080, so I have changed it not 
 </plugin>
 ```
 
-Finally, we need to create the app engine configuration file, _appengine_web.xml_ under WEB-INF directory:
+Finally, we need to create the App Engine configuration file, _appengine_web.xml_ under WEB-INF directory:
 ```
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
     <threadsafe>true</threadsafe>
@@ -155,9 +155,9 @@ public class ExampleEntity extends IdentifyEntity {
 }
 ```
 
-At this point, let's go to separate 2 ways to config Objectify
+At this point, I would like to separate 2 ways to config Objectify
 
-### Simple configuration
+#### Simple configuration
 
 As we need to init _ObjectifyService_ and register our entities before doing any operation, we can add in our _main_ class (_Application.java_) the next method:
 ```
@@ -182,7 +182,7 @@ public class ObjectifyConfig {
 }
 ```
 
-### My configuration
+#### My configuration
 
 As I didn't like to much the idea of having the transaction at the HTTP Request level (I prefer using @Service component for that), and much less having to register each @Entity manually, I did the next steps:
 
@@ -215,7 +215,7 @@ public class ObjectifyConfig {
 }
 ```
 
-On the other hand, insted of using _ObjectifyFilter_ to begin the transaction, I have used AOP to do it at the Service level.
+On the other hand, insted of using _ObjectifyFilter_ to begin the transaction, I have used AOP to do it at the Service layer.
 Firstly, let's add aspect dependencies on our _pom.xml_:
 ```
 <dependency>
