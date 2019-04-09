@@ -258,3 +258,137 @@ public class Application {
     }
 }
 ```
+
+## Service
+For this sample, I have just created a Generic Service with CRUD operations. In each method, you have to inform the _@Entity_ classType, in which the operation will be executed:
+```
+@Service
+public class GenericService {
+
+    public <T extends IdentifyEntity> List<T> findAll(Class<T> classType) {
+        return ObjectifyService.ofy().load().type(classType).list();
+    }
+
+    public <T extends IdentifyEntity> T find(Long id, Class<T> classType) {
+        return ObjectifyService.ofy().load().type(classType).id(id).now();
+    }
+
+    public <T extends IdentifyEntity> T save(T entity) {
+        ObjectifyService.ofy().save().entity(entity).now();
+        return entity;
+    }
+
+    public <T extends IdentifyEntity> void delete(Long id, Class<T> classType) {
+        ObjectifyService.ofy().delete().type(classType).id(id).now();
+    }
+
+    public <T extends IdentifyEntity> void deleteAll(Class<T> classType) {
+        ObjectifyService.ofy().delete().entities( findAll(classType) );
+    }
+
+}
+```
+
+## Restful
+At this point, we are left with just one task, the Restful layer. Simply, we have to create a _@Controller_ with our Restful API, calling to the given _@Service_ method in each case:
+
+```
+@RestController
+@RequestMapping("/example")
+public class ExampleController {
+
+    @Autowired
+    private GenericService service;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<ExampleEntity>> getAll() {
+
+        List<ExampleEntity> entities = service.findAll(ExampleEntity.class);
+        if (entities == null || entities.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<List<ExampleEntity>>(entities, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ExampleEntity> get(@PathVariable("id") long id) {
+
+        ExampleEntity entity = service.find(id, ExampleEntity.class);
+        if (entity == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<ExampleEntity>(entity, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<ExampleEntity> post(@RequestBody ExampleEntity entity, UriComponentsBuilder ucBuilder) {
+
+        if (entity.getId() != null) {
+            entity.setId(null);
+        }
+
+        entity = service.save(entity);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/example/{id}").buildAndExpand(entity.getId()).toUri());
+        return new ResponseEntity<ExampleEntity>(entity, headers, HttpStatus.CREATED);
+
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<ExampleEntity> put(@PathVariable("id") Long id, @RequestBody ExampleEntity entity) {
+
+        ExampleEntity foundEntity = service.find(id, ExampleEntity.class);
+        if (foundEntity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        entity.setId(id);
+        service.save(entity);
+
+        return new ResponseEntity<ExampleEntity>(entity, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<ExampleEntity> patch(@PathVariable("id") Long id, @RequestBody ExampleEntity entity) {
+
+        ExampleEntity foundEntity = service.find(id, ExampleEntity.class);
+        if (foundEntity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (entity.getId() != null) {
+            entity.setId(null);
+        }
+
+        Utils.merge( entity, foundEntity );
+
+        service.save(foundEntity);
+
+        return new ResponseEntity<ExampleEntity>(entity, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<ExampleEntity> delete(@PathVariable("id") Long id) {
+
+        ExampleEntity entity = service.find(id, ExampleEntity.class);
+        if (entity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        service.delete(id, ExampleEntity.class);
+        return new ResponseEntity<ExampleEntity>(HttpStatus.NO_CONTENT);
+    }
+
+}
+```
+
+And try it:
+```
+$ mvn appengine:run
+```
